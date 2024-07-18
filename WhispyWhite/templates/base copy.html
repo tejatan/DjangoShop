@@ -1,0 +1,190 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}GreatKart{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'fonts/fontawesome/css/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/ui.css' %}">
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}" media="only screen and (max-width: 1200px)">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+        }
+        .navbar {
+            background: #000;
+            padding: 10px 20px;
+            
+        }
+        .navbar-brand img {
+            max-height: 24px;
+        }
+        .navbar-nav {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .navbar-nav li a {
+            text-decoration: none;
+            color: #fff;
+            font-size: 14px;
+            padding: 5px;
+        }
+        .navbar-nav li a:hover {
+            color: #007bff;
+        }
+        .search-form input {
+            padding: 10px 15px;
+            border: 1px solid #333;
+            border-radius: 50px 0 0 50px;
+            width: 250px;
+            background-color: #333;
+            color: #fff;
+            outline: none;
+        }
+        .search-form button {
+            padding: 10px 15px;
+            border: 1px solid #333;
+            border-left: none;
+            border-radius: 0 50px 50px 0;
+            background: #007bff;
+            color: #fff;
+            cursor: pointer;
+            outline: none;
+        }
+        .navbar-icons {
+            display: flex;
+            align-items: center;
+        }
+        .navbar-icons i {
+            color: #fff;
+            font-size: 20px;
+            margin-left: 20px;
+            cursor: pointer;
+        }
+        .main-content {
+            padding: 5px;
+        }
+        .footer {
+            background: #000;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        .section-intro {
+            background-color: #1c1c1c;
+            color: #ee0620;
+            padding: 5px ;
+        }
+        .card-product-grid {
+            background-color: #333;
+            border: none;
+        }
+        .card-product-grid .img-wrap img {
+            max-width: 100%;
+        }
+        .card-product-grid .info-wrap {
+            padding: 15px;
+        }
+        .card-product-grid .title {
+            color: #ee0620;
+            text-decoration: none;
+        }
+        .card-product-grid .title:hover {
+            color: #007bff;
+        }
+        .card-product-grid .price {
+            color: #ffc107;
+        }
+        @media (max-width: 768px) {
+            .navbar-nav {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+            }
+            .navbar-nav.show {
+                display: flex;
+            }
+            .search-form {
+                display: flex;
+            }
+            .navbar-icons i {
+                margin-left: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <a class="navbar-brand" href="/">
+            <img src="{% static 'images/logo.png' %}" alt="GreatKart">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon" style="color: white;"><i class="fa fa-bars"></i></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/store">Store</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Categories
+                    </a>
+                    {% for category in links %}
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href={{category.get_url}}>{{ category.category_name }}</a>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+            <form action="#" class="form-inline my-2 my-lg-0 search-form">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn my-2 my-sm-0" type="submit"><i class="fa fa-search"></i></button>
+            </form>
+            <div class="navbar-icons">
+                <a href="/cart.html"><i class="fa fa-shopping-cart"></i></a>
+                <i class="fa fa-search" onclick="toggleSearch()"></i>
+                <i class="fa fa-bars" id="menu-icon" onclick="toggleMenu()"></i>
+            </div>
+        </div>
+    </nav>
+    <div class="main-content">
+        {% block content %}
+        {% endblock %}
+    </div>
+    {% include 'footer.html' %}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl5+5hb7MQa2f7qXab5V6/U3uc/5IFfL7xN5I5YVh1" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pjaaA8dDz/7ujldFsh2F70dIm3QMR5bfTh0+vJwqBNe97PtO6q3zJ1yMgScl0v+U" crossorigin="anonymous"></script>
+    <script>
+        function toggleSearch() {
+            const searchForm = document.querySelector('.search-form');
+            searchForm.classList.toggle('show');
+        }
+
+        function toggleMenu() {
+            const navbarNav = document.getElementById('navbarNav');
+            const menuIcon = document.getElementById('menu-icon');
+            if (navbarNav.classList.contains('show')) {
+                navbarNav.classList.remove('show');
+                menuIcon.classList.remove('fa-times');
+                menuIcon.classList.add('fa-bars');
+            } else {
+                navbarNav.classList.add('show');
+                menuIcon.classList.remove('fa-bars');
+                menuIcon.classList.add('fa-times');
+            }
+        }
+
+        $(document).ready(function () {
+            $('.dropdown-toggle').dropdown();
+        });
+    </script>
+</body>
+</html>

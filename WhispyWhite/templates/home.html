@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}WhispyWhite | Home{% endblock %}
+
+{% block content %}
+    <section class="section-intro">
+        <header class="section-heading d-flex justify-content-between align-items-center">
+            <h3 class="section-title" style="color: #ee0620;">Popular products</h3>
+            <!-- <a href="{% url 'store' %}" class="btn btn-outline-primary">See all</a> -->
+        </header>
+
+        <div class="row">
+            {% for product in products %}
+            <div class="col-md-3">
+                <div class="card card-product-grid">
+                    <a href="{{ product.get_url }}" class="img-wrap"><img src="{{ product.images.url }}"></a>
+                    <figcaption class="info-wrap">
+                        <a href="{{ product.get_url }}" class="title" style="color: #ee0620;">{{ product.product_name }}</a>
+                        <div class="price mt-1" >₹ {{ product.price }}</div>
+                    </figcaption>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+{% endblock %}
