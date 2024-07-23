@@ -24,4 +24,3 @@ def product_detail(request, category_slug, product_slug):
         'single_product': single_product,
     }
     return render(request, 'store/product_detail.html', context)
-

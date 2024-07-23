@@ -25,4 +25,11 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('', include('preferences.urls')),
     path('store/', include('store.urls')),  # Include store app URLs
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path('cart/', include('carts.urls')),
+    ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+# ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
