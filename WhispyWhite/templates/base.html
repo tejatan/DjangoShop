@@ -68,11 +68,23 @@
             display: flex;
             align-items: center;
         }
-        .navbar-icons i {
+        .navbar-icons a, .navbar-icons i {
             color: #fff; /* Light text color */
             font-size: 20px;
             margin-left: 20px;
             cursor: pointer;
+            margin-right: 20px; /* Add right margin for spacing */
+        }
+        .fa-stack {
+            width: 2em;
+            height: 2em;
+            line-height: 2em;
+        }
+        .fa-stack-1x, .fa-stack-2x {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            text-align: center;
         }
         .main-content {
             padding: 10px;
@@ -185,7 +197,13 @@
                 <button class="btn my-2 my-sm-0" type="submit"><i class="fa fa-search"></i></button>
             </form>
             <div class="navbar-icons">
-                <a href="/cart"><i class="fa fa-shopping-cart"></i></a>
+                <a href="/cart" class="widget-header pl-3 ml-3">
+                    <span class="fa-stack">
+                        <i class="fa fa-circle fa-stack-2x" style="color: black;"></i>
+                        <i class="fa fa-shopping-cart fa-stack-1x fa-inverse"></i>
+                    </span>
+                    <span class="badge badge-pill badge-danger notify">{{ cart_count }}</span>
+                </a>
                 <a href="/account.html"><i class="fa fa-user"></i></a>
                 <i class="fa fa-search" onclick="toggleSearch()"></i>
             </div>
